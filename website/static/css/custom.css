@@ -74,3 +74,15 @@
 .nav-footer {
     background-color: #262a46;
 }
+
+.navSearchWrapper:before {
+    border: 2px solid #656fa7;
+    width: 8px;
+    height: 8px;
+}
+
+.navSearchWrapper:after {
+    background: #656fa7;
+    width: 2px;
+    left: 25px;
+}
