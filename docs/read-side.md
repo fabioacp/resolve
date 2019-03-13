@@ -152,7 +152,7 @@ You can communicate with the store using the standard API. The code sample below
 
 A [resolver](#resolvers) then uses the data from the store to prepare final data samples for data requests.
 
-Note that you can add any additional logic to a projection function. For instance, you can perform SQL queries, update Elastic Search indexes, write arbitrary data to files, etc.
+Note that you can add additional logic to a projection function. For instance, you can perform SQL queries, update Elastic Search indexes, write arbitrary data to files, etc.
 
 If you delete the Read Model storage, the framework re-populates the store based on all the events. This can be useful in the development environment and when you deploy an updated version of the application.
 
