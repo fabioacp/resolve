@@ -530,7 +530,7 @@ Create a **ShoppingList.js** file in the client application's **containers** fol
 
 [embedmd]:# (../examples/shopping-list-tutorial/lesson-4/client/containers/ShoppingList.js /\/\// /^\}/)
 ```js
-// The example code uses components from the react-bootstrap library to keep the markup compact.
+// The example code uses components from the react-bootstrap library to reduce the markup.
 import { ListGroup, ListGroupItem, Checkbox } from 'react-bootstrap'
 
 export class ShoppingList extends React.PureComponent {
