@@ -1195,24 +1195,29 @@ Run your application and create a new shopping list to view the result.
 
 [\[Get the Code for This Lesson\]](https://github.com/reimagined/resolve/tree/master/examples/shopping-list-tutorial/lesson-7)
 
-In this lesson, you will provide miscellaneous functionality enhancements to your Shopping List application to support the full set of data editing operations. These steps are not essential, but they will help you further deepen your understanding of the reSolve framework's fundamentals.
+The lesson describes how to make the following enhancements to the Shopping List application:
 
-### Modify the Write Side
+- Modify the reSolve backend to provide the complete set of CRUD (create, read, update, delete) operations.
+- Modify the frontend to support all CRUD operations.
+- Add static resources to the frontend.
 
-Define additional events to implement the missing functionality.
+### Modify the Backend
+
+#### Update the Write Side
+
+Define the following events to implement the full set of CRUD (create, read, update, delete) operations:
 
 **common/event_types.js:**
 
 ```js
 ...
+export const SHOPPING_LIST_CREATED = 'SHOPPING_LIST_CREATED'
 export const SHOPPING_LIST_RENAMED = 'SHOPPING_LIST_RENAMED'
-
 export const SHOPPING_LIST_REMOVED = 'SHOPPING_LIST_REMOVED'
-
 export const SHOPPING_ITEM_REMOVED = 'SHOPPING_ITEM_REMOVED'
 ```
 
-Modify the aggregate projection to account for shopping list deletion.
+Modify the aggregate projection to allow you to delete a shopping list.
 
 **common/aggregates/shopping_list.projection.js:**
 
@@ -1220,7 +1225,7 @@ Modify the aggregate projection to account for shopping list deletion.
 [SHOPPING_LIST_REMOVED]: () => ({})
 ```
 
-Define command handlers to provide the capability to edit data.
+Define command handlers used to edit data.
 
 **common/aggregates/shopping_list.commands.js:**
 
@@ -1248,9 +1253,9 @@ Define command handlers to provide the capability to edit data.
   }
 ```
 
-### Modify the Read Side
+#### Update the Read Side
 
-Modify the ShoppingList View Model projection to account for the new functionality.
+Modify the ShoppingList View Model projection to handle the new event types.
 
 **common/view-models/shopping_list.projection.js:**
 
@@ -1293,17 +1298,17 @@ Modify the ShoppingLists Read Model projection.
 
 ### Modify the Frontend
 
-#### Add Static Content
+#### Use Static Content
 
-Add the required static content to the application's **static** folder. The example application uses the following static files:
+Add the static content to the application's **static** folder. The example application uses the following static files:
 
-- The **Styles.css** file - Contains custom styles used by the application's client components.
+- The **Styles.css** file - Contains styles the application's client components use.
 - The **fontawesome.min.css** file an the **webfonts** folder - The standard [Font Awesome](https://fontawesome.com/) distribution.
-- The **close-button.png** image - An icon that the button used to remove shopping list items displays.
+- The **close-button.png** image - The Remove Shopping List button's icon.
 
 #### Update Components
 
-Modify the ShoppingLists component to support shopping list deletion.
+Modify the ShoppingLists component to provide a UI for shopping list deletion.
 
 **client/components/ShoppingLists.js:**
 
@@ -1329,7 +1334,7 @@ const { lists, createShoppingList, removeShoppingList } = this.props
 <ShoppingLists lists={lists} removeShoppingList={removeShoppingList} />
 ```
 
-Modify the ShoppingList component to provide the capability to rename shopping lists.
+Modify the ShoppingList component to allow users to rename shopping lists.
 
 **client/containers/ShoppingList.js:**
 
@@ -1368,7 +1373,7 @@ updateShoppingListName = event => {
 />
 ```
 
-Add list item deletion functionality.
+Add the list item deletion functionality.
 
 **client/containers/ShoppingList.js:**
 
@@ -1387,7 +1392,7 @@ const {
 />
 ```
 
-The **Image** component is implemented as follows.
+The code below implements the **Image** component.
 
 **client/containers/Image.js:**
 
@@ -1402,11 +1407,14 @@ export default Image
 
 #### Link Stylesheets:
 
-The code sample below demonstrates how to link stylesheets to your application.
+Use the React Helmet component to link stylesheets to your application.
 
 **client/containers/Header.js:**
 
 ```js
+import {Helmet} from "react-helmet"
+...
+
 <Helmet>
   {css.map((href, index) => (
     <link rel="stylesheet" href={href} key={index} />
@@ -1426,9 +1434,9 @@ export default connectStaticBasedUrls(['css', 'favicon'])(Header)
 />
 ```
 
-#### Update the Optimistic Update Code
+#### Update the Optimistic Updates Code
 
-Modify the code related to optimistic UI updates to support shopping list deletion.
+Modify the code related to optimistic UI updates to support the shopping list deletion.
 
 **client/actions/optimistic_actions.js:**
 
